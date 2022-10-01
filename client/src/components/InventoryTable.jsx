@@ -13,7 +13,6 @@ import Paper from '@mui/material/Paper';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from '@mui/material/Button';
 
-
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
@@ -24,9 +23,11 @@ const rows = [
     createData('Eclair', 262),
 ];
 
-export default function AcccessibleTable() {
-    return (
-        <TableContainer component={Paper}>
+
+const InventoryTable = () => {
+  return (
+    <div>
+          <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 <caption>A basic table example with a caption</caption>
                 <TableHead>
@@ -66,5 +67,8 @@ export default function AcccessibleTable() {
                 </TableBody>
             </Table>
         </TableContainer>
-    );
+    </div>
+  )
 }
+
+export default InventoryTable
