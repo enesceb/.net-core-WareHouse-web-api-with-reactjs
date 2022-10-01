@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import UpgradeOutlinedIcon from '@mui/icons-material/UpgradeOutlined';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,23 +12,63 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import axios from 'axios';
+import CloudSyncIcon from '@mui/icons-material/CloudSync';
+import DeleteAlert from './DeleteAlert'
+
 
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159),
-    createData('Ice cream sandwich', 237),
-    createData('Eclair', 262),
-];
 
 export default function AcccessibleTable() {
+    const [WareHousesData, setWareHouseData] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios(
+                'https://localhost:7089/api/tblWarehouses',
+            );
+
+            setWareHouseData(result.data);
+        };
+
+        fetchData();
+    }, []);
+
+
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ mb: 2 }}>
+           {WareHousesData.length < 3 &&
+           
+            <Box
+            
+            sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                p: 1,
+                m: 1,
+                bgcolor: 'background.paper',
+                borderRadius: 1,
+            }}>  
+      
+                   <Link to={"/AddWareHouse"} style={{ textDecoration: 'none', padding: '5px' }} >
+                <Button color='success' variant="outlined" startIcon={<AddIcon color="success" />}>
+
+                    Add New WareHouse
+
+                </Button>
+            </Link>
+        </Box>
+}
+
             <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 <caption>A basic table example with a caption</caption>
+
                 <TableHead>
                     <TableRow>
                         <TableCell>WareHouse ID</TableCell>
@@ -37,28 +77,30 @@ export default function AcccessibleTable() {
 
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
+                    {WareHousesData.map((item) => (
+                        <TableRow key={item.id}>
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {item.id}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
+                            <TableCell align="right">{item.wareHouseName}</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="delete" color='primary'>
-                                    <Button variant="outlined" startIcon={<VisibilityIcon />}>
-                                        View Inventory
-                                    </Button>
+                                    <Link to={"/inventory/1"}  >
+                                        <Button variant="outlined" startIcon={<VisibilityIcon />}>
+                                            View Inventory
+                                        </Button>
+                                    </Link>
                                 </IconButton>
                                 <IconButton aria-label="delete" color='error'>
-                                    <DeleteIcon />
+                                <DeleteAlert/>
                                 </IconButton>
-                                <IconButton color="secondary">
-                                    <UpgradeOutlinedIcon />
-                                </IconButton>
-                                <IconButton color="success">
-                                    <AddIcon />
-                                </IconButton>
+                                <Link to={"/UpdateWareHouse/1"}  >
+                                    <IconButton color="secondary">
+                                        <CloudSyncIcon sx={{ fontSize: 30 }} />
+                                    </IconButton>
+                                </Link>
                             </TableCell>
 
                         </TableRow>

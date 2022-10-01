@@ -1,8 +1,5 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import UpgradeOutlinedIcon from '@mui/icons-material/UpgradeOutlined';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,6 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import DeleteAlert from './DeleteAlert'
+import CloudSyncIcon from '@mui/icons-material/CloudSync';
+
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -26,10 +27,10 @@ const rows = [
 
 const InventoryTable = () => {
   return (
-    <div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="caption table">
+                <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 <caption>A basic table example with a caption</caption>
+
                 <TableHead>
                     <TableRow>
                         <TableCell>WareHouse ID</TableCell>
@@ -38,28 +39,30 @@ const InventoryTable = () => {
 
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
+                    {rows.map((item) => (
+                        <TableRow key={item.name}>
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {item.name}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
+                            <TableCell align="right">{item.calories}</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="delete" color='primary'>
-                                    <Button variant="outlined" startIcon={<VisibilityIcon />}>
-                                        View Inventory
-                                    </Button>
+                                    <Link to={"/inventory/1"}  >
+                                        <Button variant="outlined" startIcon={<VisibilityIcon />}>
+                                            View Inventory
+                                        </Button>
+                                    </Link>
                                 </IconButton>
                                 <IconButton aria-label="delete" color='error'>
-                                    <DeleteIcon />
+                                <DeleteAlert/>
                                 </IconButton>
-                                <IconButton color="secondary">
-                                    <UpgradeOutlinedIcon />
-                                </IconButton>
-                                <IconButton color="success">
-                                    <AddIcon />
-                                </IconButton>
+                                <Link to={"/UpdateWareHouse/1"}  >
+                                    <IconButton color="secondary">
+                                        <CloudSyncIcon sx={{ fontSize: 30 }} />
+                                    </IconButton>
+                                </Link>
                             </TableCell>
 
                         </TableRow>
@@ -67,7 +70,6 @@ const InventoryTable = () => {
                 </TableBody>
             </Table>
         </TableContainer>
-    </div>
   )
 }
 

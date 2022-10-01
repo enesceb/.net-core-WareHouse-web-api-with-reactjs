@@ -74,7 +74,8 @@ namespace WareHouseAPI.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> DeleteWareHouse([FromRoute] Guid id)
         {
-            var wareHouse = await dbContext.tblWarehouses.FindAsync();
+            var wareHouse = await dbContext.tblWarehouses.Where(w => w.Id == id).FirstAsync();
+            Console.Write(wareHouse);
 
             if (wareHouse != null)
             {

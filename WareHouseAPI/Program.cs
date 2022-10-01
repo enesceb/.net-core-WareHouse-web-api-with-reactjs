@@ -3,6 +3,17 @@ using WareHouseAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(optios =>
+{
+    optios.AddPolicy("CORSPolicy",
+        builder =>
+        {
+            builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins("http://localhost:3000", "https://appname.azurestaticapps.net");
+        });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -22,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CORSPolicy");
 
 app.UseAuthorization();
 
