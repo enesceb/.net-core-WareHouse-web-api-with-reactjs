@@ -1,4 +1,9 @@
 import React from 'react'
+import axios from "axios";
+import  { useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,17 +16,23 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
+
+
 
 const AddWareHouse = () => {
     const theme = createTheme();
+    const history = useNavigate();
+    const [wareHouseName, setWareHouseName] = useState("");
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            WareHouse: data.get('WareHouse'),
-        });
+        axios
+        .post("https://localhost:7089/api/tblWarehouses", {
+          wareHouseName: wareHouseName,
+         })
+        .then(() => {
+          history("/");  
+      });
       
     }
   return (
@@ -64,12 +75,13 @@ const AddWareHouse = () => {
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="given-name"
-                name="WareHouse"
+                name="wareHouseName"
                 required
                 fullWidth
-                id="WareHouse"
+                id="wareHouseName"
                 label="Ware House"
                 autoFocus
+                onChange={(e) => setWareHouseName(e.target.value)}
               />
             </Grid>
             
@@ -79,12 +91,13 @@ const AddWareHouse = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+         
           >
             Add WareHouse
           </Button>
         </Box>
       </Box>
-    
+    {}
     </Container>
   </ThemeProvider>
   )

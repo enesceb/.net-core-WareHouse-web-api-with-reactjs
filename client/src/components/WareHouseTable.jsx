@@ -20,27 +20,26 @@ import DeleteAlert from './DeleteAlert'
 
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-
 export default function AcccessibleTable() {
     const [WareHousesData, setWareHouseData] = useState([])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(
-                'https://localhost:7089/api/tblWarehouses',
-            );
-
-            setWareHouseData(result.data);
-        };
-
-        fetchData();
-    }, []);
 
 
+    function getData() {
+        axios
+          .get("https://localhost:7089/api/tblWarehouses")
+          .then((res) => {
+            setWareHouseData(res.data);
+          });
+      }
+     
+   
+
+   
+
+      useEffect(() => {
+        getData();
+      }, []);
     return (
         <TableContainer component={Paper} sx={{ mb: 2 }}>
            {WareHousesData.length < 3 &&
@@ -86,15 +85,15 @@ export default function AcccessibleTable() {
                             </TableCell>
                             <TableCell align="right">{item.wareHouseName}</TableCell>
                             <TableCell align="right">
-                                <IconButton aria-label="delete" color='primary'>
-                                    <Link to={"/inventory/1"}  >
+                                <IconButton aria-label="view" color='primary'>
+                                    <Link to={"/inventory/1"} >
                                         <Button variant="outlined" startIcon={<VisibilityIcon />}>
                                             View Inventory
                                         </Button>
                                     </Link>
                                 </IconButton>
                                 <IconButton aria-label="delete" color='error'>
-                                <DeleteAlert/>
+                                <DeleteAlert getData={getData} item={item} />
                                 </IconButton>
                                 <Link to={"/UpdateWareHouse/1"}  >
                                     <IconButton color="secondary">

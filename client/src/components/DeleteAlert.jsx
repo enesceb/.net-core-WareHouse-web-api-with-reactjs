@@ -6,13 +6,26 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import { fontWeight } from '@mui/system';
 
-export default function AlertDialog() {
+export default function AlertDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
+
+    function handleDelete(id) {
+        axios
+          .delete(`https://localhost:7089/api/tblWarehouses/${props.item.id}`)
+          .then(() => {
+            props.getData();
+            setOpen(false);
+          });
+      }
+     console.log(props)
+
 
     const handleClose = () => {
         setOpen(false);
@@ -31,17 +44,17 @@ export default function AlertDialog() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Use Google's location service?"}
+                    {"DELETE WAREHOUSE"}
                 </DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
+                <DialogContent sx={{width: 500}}>
+                    <DialogContentText sx={{display:"flex", justifyContent:"center", fontSize:"20px" , fontWeight:"400"}} id="alert-dialog-description">
+                       Do you want to delete {props.item.wareHouseName}?<br/>
+                        If you want, you can click to Agree Button
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose} autoFocus>
+                    <Button onClick={handleDelete} autoFocus>
                         Agree
                     </Button>
                 </DialogActions>

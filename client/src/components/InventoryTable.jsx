@@ -48,7 +48,7 @@ const InventoryTable = () => {
                             </TableCell>
                             <TableCell align="right">{item.calories}</TableCell>
                             <TableCell align="right">
-                                <IconButton aria-label="delete" color='primary'>
+                                {/* <IconButton aria-label="delete" color='primary'>
                                     <Link to={"/inventory/1"}  >
                                         <Button variant="outlined" startIcon={<VisibilityIcon />}>
                                             View Inventory
@@ -62,7 +62,7 @@ const InventoryTable = () => {
                                     <IconButton color="secondary">
                                         <CloudSyncIcon sx={{ fontSize: 30 }} />
                                     </IconButton>
-                                </Link>
+                                </Link> */}
                             </TableCell>
 
                         </TableRow>
