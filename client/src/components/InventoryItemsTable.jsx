@@ -20,6 +20,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import AddIcon from "@mui/icons-material/Add";
 
 const InventoryItemsTable = () => {
+    
 
     const [Items, setItems] = useState([])
     const params = useParams()

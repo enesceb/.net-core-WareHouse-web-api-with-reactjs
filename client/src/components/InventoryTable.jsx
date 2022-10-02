@@ -25,10 +25,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 
 const InventoryTable = () => {
-
-
-
-    const [Inventory, setInventory] = useState([{}])
+   const [Inventory, setInventory] = useState([{}])
     const params = useParams()
     const getData = async () => {
         const data = await axios
@@ -44,7 +41,6 @@ const InventoryTable = () => {
 
     if (!Inventory) return 'Loading...';
 
-    console.log(Inventory)
     return (
         <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="lg">
             <Typography variant="h2" component="h1" gutterBottom>
@@ -80,8 +76,8 @@ const InventoryTable = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {Inventory.map((item) => (
-                                <TableRow key={item.id}>
+                            {Inventory.map((item , index) => (
+                                <TableRow key={index}>
                                     <TableCell component="th" scope="row">
                                         {item.id}
                                     </TableCell>

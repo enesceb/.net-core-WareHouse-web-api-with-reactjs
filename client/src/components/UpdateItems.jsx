@@ -28,8 +28,6 @@ const UpdateItems = () => {
     const [Item, setItem] = useState("");
     const [Quantity, setQuantity] = useState("");
 
-    console.log(location)
-    
     const handleUpdate = (e) => {
         e.preventDefault();
         axios

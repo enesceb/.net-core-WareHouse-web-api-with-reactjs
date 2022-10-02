@@ -18,16 +18,11 @@ import { useLocation } from "react-router-dom";
 const UpdateWareHouse = (props) => {
   const theme = createTheme();
   const [updateState, setUpdateState] = useState("");
-
   const location = useLocation();
-
   const params = useParams()
   const navigate = useNavigate();
   const fieldname =  location.state.FieldName
   const Warehouseid = location.state.wareHouseID
-
-  console.log(location.state)
-
 
   const handleUpdate = (e) => {
     e.preventDefault();

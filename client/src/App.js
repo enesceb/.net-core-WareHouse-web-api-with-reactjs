@@ -23,6 +23,7 @@ export default function App() {
     <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<InventoryItemsTable/>} />
     </Routes>
     </BrowserRouter>
+    // Finalize
     
   );
 }
