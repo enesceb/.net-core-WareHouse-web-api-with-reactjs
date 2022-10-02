@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,23 +11,36 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import DeleteAlert from './DeleteAlert'
 import CloudSyncIcon from '@mui/icons-material/CloudSync';
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159),
-    createData('Ice cream sandwich', 237),
-    createData('Eclair', 262),
-];
+
 
 
 const InventoryTable = () => {
+  
+
+    
+    const [Inventory, setInventory] = useState([])
+    const params = useParams()
+    const getData = async () =>  {
+        const data = await axios
+          .get(`https://localhost:7089/api/tblInventory/${params.id}`)
+          .then((res) => {
+            setInventory([res.data]);
+          });
+      }
+    
+      useEffect(() => {
+        getData();
+      }, []);
+   
+      if(!Inventory) return 'Loading...';
+      
+      console.log(Inventory)
   return (
           <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -33,20 +48,20 @@ const InventoryTable = () => {
 
                 <TableHead>
                     <TableRow>
-                        <TableCell>WareHouse ID</TableCell>
-                        <TableCell align="right">WareHouse Name</TableCell>
-                        <TableCell align="right">Actions</TableCell>
+                        <TableCell>Item ID</TableCell>
+                        <TableCell align="right">Inventory Name</TableCell>
+                        <TableCell align="right">Item </TableCell>
 
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
-                    {rows.map((item) => (
-                        <TableRow key={item.name}>
+                    {Inventory.map((item) => (
+                        <TableRow key={item.id}>
                             <TableCell component="th" scope="row">
-                                {item.name}
+                                {item.id}
                             </TableCell>
-                            <TableCell align="right">{item.calories}</TableCell>
+                            <TableCell align="right">{item.inventoryName}</TableCell>
                             <TableCell align="right">
                                 {/* <IconButton aria-label="delete" color='primary'>
                                     <Link to={"/inventory/1"}  >
@@ -64,7 +79,6 @@ const InventoryTable = () => {
                                     </IconButton>
                                 </Link> */}
                             </TableCell>
-
                         </TableRow>
                     ))}
                 </TableBody>

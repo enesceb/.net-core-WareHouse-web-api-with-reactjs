@@ -5,22 +5,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WareHouseAPI.Migrations
 {
-    public partial class DbContextsMigration : Migration
+    public partial class InventoryMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "tblInventories",
+                name: "tblInventory",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     wareHouseID = table.Column<int>(type: "INTEGER", nullable: false),
                     inventoryName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblInventories", x => x.Id);
+                    table.PrimaryKey("PK_tblInventory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,7 +38,7 @@ namespace WareHouseAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tblInventories");
+                name: "tblInventory");
 
             migrationBuilder.DropTable(
                 name: "tblWarehouses");

@@ -3,7 +3,7 @@ import axios from "axios";
 import  { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from 'react-router-dom';
-
+import { v4 as uuid } from 'uuid';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,16 +20,27 @@ import IconButton from '@mui/material/IconButton';
 
 
 const AddWareHouse = () => {
+  const unique_id = uuid();
     const theme = createTheme();
     const history = useNavigate();
     const [wareHouseName, setWareHouseName] = useState("");
+    const [inventoryName, setinventoryName] = useState("");
+    const [warehouseid, setwarehouseid] = useState(unique_id)
     
     const handleSubmit = (event) => {
         event.preventDefault();
+       axios.all([
         axios
         .post("https://localhost:7089/api/tblWarehouses", {
           wareHouseName: wareHouseName,
+          id: warehouseid,
+         }),
+         axios
+         .post("https://localhost:7089/api/tblInventory", {
+          inventoryName: inventoryName,
+          wareHouseID: warehouseid,
          })
+       ])
         .then(() => {
           history("/");  
       });
@@ -82,6 +93,17 @@ const AddWareHouse = () => {
                 label="Ware House"
                 autoFocus
                 onChange={(e) => setWareHouseName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                autoComplete="given-name"
+                name="inventoryName"
+                required
+                fullWidth
+                id="inventoryName"
+                label="Inventory Name"
+                onChange={(e) => setinventoryName(e.target.value)}
               />
             </Grid>
             

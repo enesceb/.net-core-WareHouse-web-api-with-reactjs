@@ -11,8 +11,8 @@ using WareHouseAPI.Data;
 namespace WareHouseAPI.Migrations
 {
     [DbContext(typeof(WareHouseAPIDbContext))]
-    [Migration("20220930143435_DbContextsMigration")]
-    partial class DbContextsMigration
+    [Migration("20221001213935_InventoryMigration")]
+    partial class InventoryMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,9 @@ namespace WareHouseAPI.Migrations
 
             modelBuilder.Entity("WareHouseAPI.Models.tblInventory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("inventoryName")
                         .IsRequired()
@@ -34,7 +34,7 @@ namespace WareHouseAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblInventories");
+                    b.ToTable("tblInventory");
                 });
 
             modelBuilder.Entity("WareHouseAPI.Models.tblWarehouses", b =>

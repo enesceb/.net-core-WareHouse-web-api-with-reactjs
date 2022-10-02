@@ -5,13 +5,13 @@ namespace WareHouseAPI.Models
     public class tblInventory
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
-        public int wareHouseID { get; set; }
+        public string wareHouseID { get; set; }
         
         [Required]
+        public string inventoryName { get; set; }   
         
-        public string inventoryName { get; set; }    
-       
+
     }
 }

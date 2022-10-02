@@ -42,7 +42,7 @@ namespace WareHouseAPI.Controllers
         {
             var warehouse = new tblWarehouses()
             {
-                Id = Guid.NewGuid(),
+                Id = addtblWarehouses.Id,
                 wareHouseName = addtblWarehouses.wareHouseName
             };
             await dbContext.tblWarehouses.AddAsync(warehouse);
@@ -75,7 +75,7 @@ namespace WareHouseAPI.Controllers
         public async Task<IActionResult> DeleteWareHouse([FromRoute] Guid id)
         {
             var wareHouse = await dbContext.tblWarehouses.Where(w => w.Id == id).FirstAsync();
-            Console.Write(wareHouse);
+           
 
             if (wareHouse != null)
             {

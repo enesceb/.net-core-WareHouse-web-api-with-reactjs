@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -20,6 +21,7 @@ import DeleteAlert from './DeleteAlert'
 
 
 
+
 export default function AcccessibleTable() {
     const [WareHousesData, setWareHouseData] = useState([])
 
@@ -32,10 +34,6 @@ export default function AcccessibleTable() {
             setWareHouseData(res.data);
           });
       }
-     
-   
-
-   
 
       useEffect(() => {
         getData();
@@ -86,8 +84,8 @@ export default function AcccessibleTable() {
                             <TableCell align="right">{item.wareHouseName}</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="view" color='primary'>
-                                    <Link to={"/inventory/1"} >
-                                        <Button variant="outlined" startIcon={<VisibilityIcon />}>
+                                    <Link key={item.id} data-warehouseid={item.id} to={`inventory/${item.id}`} >
+                                        <Button  variant="outlined" startIcon={<VisibilityIcon />}>
                                             View Inventory
                                         </Button>
                                     </Link>

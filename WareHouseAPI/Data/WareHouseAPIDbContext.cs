@@ -10,6 +10,6 @@ namespace WareHouseAPI.Data
         }
 
         public DbSet<tblWarehouses> tblWarehouses { get; set; }
-        public DbSet<tblInventory> tblInventories { get; set; }
+        public DbSet<tblInventory> tblInventory { get; set; }
     }
 }
