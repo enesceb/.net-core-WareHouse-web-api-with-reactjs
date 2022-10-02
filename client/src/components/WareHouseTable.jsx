@@ -84,7 +84,7 @@ export default function AcccessibleTable() {
                             <TableCell align="right">{item.wareHouseName}</TableCell>
                             <TableCell align="right">
                                 <IconButton aria-label="view" color='primary'>
-                                    <Link key={item.id} data-warehouseid={item.id} to={`inventory/${item.id}`} >
+                                    <Link key={item.id} data-warehouseid={item.id} to={`WareHouseid/${item.id}`} >
                                         <Button  variant="outlined" startIcon={<VisibilityIcon />}>
                                             View Inventory
                                         </Button>

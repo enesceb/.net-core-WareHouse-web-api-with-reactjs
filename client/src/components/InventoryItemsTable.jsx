@@ -19,22 +19,15 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-
-
-
-
-
-const InventoryTable = () => {
-  
-
+const InventoryItemsTable = () => {
     
-    const [Inventory, setInventory] = useState([])
+    const [Items, setItems] = useState([])
     const params = useParams()
     const getData = async () =>  {
         const data = await axios
-          .get(`https://localhost:7089/api/tblInventory/${params.id}`)
+          .get(`https://localhost:7089/api/InventoryItems/${params.id}`)
           .then((res) => {
-            setInventory([res.data]);
+            setItems([res.data]);
           });
       }
     
@@ -42,13 +35,13 @@ const InventoryTable = () => {
         getData();
       }, []);
    
-      if(!Inventory) return 'Loading...';
-      
-      console.log(Inventory)
+      console.log(params)
+
+      if(!Items) return 'Loading...';
   return (
     <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="lg">
     <Typography variant="h2" component="h1" gutterBottom>
-     {Inventory[0]?.inventoryName}
+     Inventory Items
     </Typography>
     <Typography variant="h5" component="h2" gutterBottom>
     <Box
@@ -68,35 +61,30 @@ const InventoryTable = () => {
 
         </Link>
         </Box>
-          <TableContainer component={Paper}>
+    <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 <caption>A basic table example with a caption</caption>
 
                 <TableHead>
                     <TableRow>
-                        <TableCell>Inventory ID</TableCell>
-                        <TableCell align="right">Inventory Name</TableCell>
+                        <TableCell>Item ID</TableCell>
+                        <TableCell align="right">Item Name</TableCell>
+                        <TableCell align="right">Item Quantity</TableCell>
                         <TableCell align="right">Actions </TableCell>
 
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
-                    {Inventory.map((item) => (
+                    {Items.map((item) => (
                         <TableRow key={item.id}>
                             <TableCell component="th" scope="row">
                                 {item.id}
                             </TableCell>
-                            <TableCell align="right">{item.inventoryName}</TableCell>
+                            <TableCell align="right">{item.item}</TableCell>
+                            <TableCell align="right">{item.quantity}</TableCell>
                             <TableCell align="right">
-                                <IconButton aria-label="delete" color='primary'>
-                                <Link key={item.id} data-inventoryid={item.id} to={`inventoryid/${item.id}`} >
-                                        <Button  variant="outlined" startIcon={<VisibilityIcon />}>
-                                            View Items
-                                        </Button>
-                                    </Link>
-                                </IconButton>
-                                <IconButton aria-label="delete" color='error'>
+                            <IconButton aria-label="delete" color='error'>
                                 <DeleteAlert getData={getData} item={item}/>
                                 </IconButton>
                                 <Link to={"/UpdateWareHouse/1"}  >
@@ -116,4 +104,4 @@ const InventoryTable = () => {
   )
 }
 
-export default InventoryTable
+export default InventoryItemsTable

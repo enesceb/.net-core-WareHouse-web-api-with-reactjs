@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Feed from "./components/Feed";
-import InventoryContainer from './components/InventoryContainer'
+import InventoryTable from './components/InventoryTable'
 import AddWareHouse from "./components/AddWareHouse"
 import UpdateWareHouse from "./components/UpdateWareHouse"
+import InventoryItemsTable from './components/InventoryItemsTable'
 
 
 export default function App() {
@@ -14,7 +15,8 @@ export default function App() {
     <Route path="/" exact element={<Feed/>} />
     <Route path="/AddWareHouse" exact element={<AddWareHouse/>} />
     <Route path="/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
-    <Route path="/Inventory/:id" exact element={<InventoryContainer/>} />
+    <Route path="/WareHouseid/:id" exact element={<InventoryTable/>} />
+    <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<InventoryItemsTable/>} />
     </Routes>
     </BrowserRouter>
     

@@ -23,20 +23,33 @@ namespace WareHouseAPI.Controllers
             return Ok(await dbContext.InventoryItems.ToListAsync());
 
         }
-
         [HttpGet]
         [Route("{id:guid}")]
-        public async Task<IActionResult> GetInentoryItem([FromRoute] Guid id)
+        public async Task<IActionResult> GetInventoryItemsByInventoryId([FromRoute] Guid id)
         {
-            var item = await dbContext.InventoryItems.FindAsync(id);
-
-            if (item == null)
+            var inventory = await dbContext.InventoryItems.Where(w => w.InventoryID == id.ToString()).FirstAsync();
+            if (inventory == null)
             {
                 return NotFound();
             }
 
-            return Ok(item);
+            return Ok(inventory);
+
         }
+
+        //[HttpGet]
+        //[Route("{id:guid}")]
+        //public async Task<IActionResult> GetInentoryItem([FromRoute] Guid id)
+        //{
+        //    var item = await dbContext.InventoryItems.FindAsync(id);
+
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(item);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> AddInentoryItems(InventoryItems addInventoryItems)
