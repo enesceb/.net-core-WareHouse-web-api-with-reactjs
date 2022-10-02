@@ -11,5 +11,6 @@ namespace WareHouseAPI.Data
 
         public DbSet<tblWarehouses> tblWarehouses { get; set; }
         public DbSet<tblInventory> tblInventory { get; set; }
+        public DbSet<InventoryItems> InventoryItems { get; set; }
     }
 }

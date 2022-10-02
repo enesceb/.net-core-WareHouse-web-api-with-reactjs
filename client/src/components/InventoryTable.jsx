@@ -63,21 +63,21 @@ const InventoryTable = () => {
                             </TableCell>
                             <TableCell align="right">{item.inventoryName}</TableCell>
                             <TableCell align="right">
-                                {/* <IconButton aria-label="delete" color='primary'>
-                                    <Link to={"/inventory/1"}  >
-                                        <Button variant="outlined" startIcon={<VisibilityIcon />}>
-                                            View Inventory
+                                <IconButton aria-label="delete" color='primary'>
+                                <Link key={item.id} data-inventoryid={item.id} to={`/${item.id}`} >
+                                        <Button  variant="outlined" startIcon={<VisibilityIcon />}>
+                                            View Items
                                         </Button>
                                     </Link>
                                 </IconButton>
                                 <IconButton aria-label="delete" color='error'>
-                                <DeleteAlert/>
+                                <DeleteAlert getData={getData} item={item}/>
                                 </IconButton>
                                 <Link to={"/UpdateWareHouse/1"}  >
                                     <IconButton color="secondary">
                                         <CloudSyncIcon sx={{ fontSize: 30 }} />
                                     </IconButton>
-                                </Link> */}
+                                </Link>
                             </TableCell>
                         </TableRow>
                     ))}

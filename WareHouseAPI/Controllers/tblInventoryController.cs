@@ -54,5 +54,42 @@ namespace WareHouseAPI.Controllers
 
             return Ok(inventory);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateInventory([FromRoute] Guid id, tblInventory updateTblInventories)
+        {
+            var inventory = await dbContext.tblInventory.FindAsync(id);
+
+            if (inventory != null)
+            {
+                inventory.inventoryName = updateTblInventories.inventoryName;
+              
+
+                await dbContext.SaveChangesAsync();
+
+                return Ok(inventory);
+            }
+
+            return NotFound();
+
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> DeleteInventory([FromRoute] Guid id)
+        {
+            var inventory = await dbContext.tblInventory.Where(w => w.Id == id).FirstAsync();
+
+
+            if (inventory != null)
+            {
+                dbContext.Remove(inventory);
+                await dbContext.SaveChangesAsync();
+                return Ok(inventory);
+            }
+
+            return NotFound();
+        }
     }
 }

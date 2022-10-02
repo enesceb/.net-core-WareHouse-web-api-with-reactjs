@@ -17,6 +17,28 @@ namespace WareHouseAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
 
+            modelBuilder.Entity("WareHouseAPI.Models.InventoryItems", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InventoryID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Item")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InventoryItems");
+                });
+
             modelBuilder.Entity("WareHouseAPI.Models.tblInventory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -27,8 +49,9 @@ namespace WareHouseAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("wareHouseID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("wareHouseID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
