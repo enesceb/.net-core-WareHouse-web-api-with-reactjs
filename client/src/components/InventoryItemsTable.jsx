@@ -9,7 +9,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import Button from '@mui/material/Button';
 import { Link, useParams } from 'react-router-dom';
 import DeleteAlert from './DeleteAlert'
@@ -35,9 +34,6 @@ const InventoryItemsTable = () => {
     useEffect(() => {
         getData();
     }, []);
-
-    console.log(Items)
-    
     
     if (!Items) return 'Loading...';
     return (
@@ -112,7 +108,7 @@ const InventoryItemsTable = () => {
                                         <IconButton aria-label="delete" color='error'>
                                             <DeleteAlert query={"InventoryItems"} getData={getData} item={item} />
                                         </IconButton>
-                                        <Link to={"/UpdateWareHouse/1"}  >
+                                        <Link to={`/inventoryid/${item.inventoryID}/itemid/${item.id}`} state={{ inventoryID: item.inventoryID }}   >
                                             <IconButton color="secondary">
                                                 <CloudSyncIcon sx={{ fontSize: 30 }} />
                                             </IconButton>

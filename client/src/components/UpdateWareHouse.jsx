@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,20 +10,39 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-const UpdateWareHouse = () => {
+const UpdateWareHouse = (props) => {
   const theme = createTheme();
+  const [updateState, setUpdateState] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      WareHouse: data.get('WareHouse'),
-    });
+  const location = useLocation();
 
-  }
+  const params = useParams()
+  const navigate = useNavigate();
+  const fieldname =  location.state.FieldName
+  const Warehouseid = location.state.wareHouseID
+
+  console.log(location.state)
+
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    axios
+      .put(`https://localhost:7089/api/${location.state.data}/${params.id}`, {
+        wareHouseName : updateState,
+        inventoryName: updateState,
+        wareHouseID: Warehouseid
+      })
+      .then(() => {
+        navigate("/");
+      });
+  };
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -57,9 +76,9 @@ const UpdateWareHouse = () => {
             <CloudSyncIcon sx={{ fontSize: 40 }} />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Update WareHouse
+            {fieldname}
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleUpdate} sx={{ mt: 3 }}>
             <Grid container spacing={2} width={400}>
               <Grid item xs={12} sm={12}>
                 <TextField
@@ -67,21 +86,21 @@ const UpdateWareHouse = () => {
                   name="WareHouseId"
                   fullWidth
                   id="WareHouseId"
-                  label="870650d2-544f-41ef-b772-e414faacbe0e"
-                  disabled="true"
-                  autoFocus
+                  label={params.id}
+                  disabled={true}
                 />
               </Grid>
 
               <Grid item xs={12} sm={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="WareHouse"
+                  name={fieldname}
                   required
                   fullWidth
-                  id="WareHouse"
-                  label="Ware House"
+                  id= {fieldname}
+                  label={fieldname}
                   autoFocus
+                  onChange={(e) => setUpdateState(e.target.value)}
                 />
               </Grid>
 

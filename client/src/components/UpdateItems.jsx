@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from "axios";
 import  { useState } from "react";
-import { useNavigate } from "react-router";
-import { Link,  useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router";
+import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,42 +10,39 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from '@mui/material/IconButton';
+import { useLocation } from "react-router-dom";
+import CloudSyncIcon from '@mui/icons-material/CloudSync';
 
 
-
-
-const AddInventoryItem = (props) => {
-    const params = useParams()
-        
-    const unique_id = uuid();
+const UpdateItems = () => {
     const theme = createTheme();
     const history = useNavigate();
-    const [ItemName, setItemName] = useState("");
-    const [ItemQuantity, setItemQuantity] = useState("");
-    const [itemid, setitemid] = useState(unique_id)
+    const params = useParams()
+    const location = useLocation();
+    const [Item, setItem] = useState("");
+    const [Quantity, setQuantity] = useState("");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-       axios.all([
+    console.log(location)
+    
+    const handleUpdate = (e) => {
+        e.preventDefault();
         axios
-        .post('https://localhost:7089/api/InventoryItems', {
-          id: itemid,
-          item: ItemName,
-          quantity: ItemQuantity,
-          inventoryID: params.id
-         })
-       ])
-        .then(() => {
-          history("/");  
-      });
-      
-    }
+          .put(`https://localhost:7089/api/InventoryItems/${params.id}`, {
+            Item : Item,
+            Quantity: Quantity,
+            inventoryID: location.state.inventoryID
+          })
+          .then(() => {
+            history("/");
+          });
+      };
+    
   return (
     <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
@@ -75,35 +72,35 @@ const AddInventoryItem = (props) => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{p:4, m: 1, bgcolor: 'secondary.main' }}>
-          <LibraryAddIcon sx={{ fontSize: 40 }} />
-        </Avatar>
+      <Avatar sx={{ p: 4, m: 1, bgcolor: 'secondary.main' }}>
+            <CloudSyncIcon sx={{ fontSize: 40 }} />
+          </Avatar>
         <Typography component="h1" variant="h5">
-          Add Inventory Item  
+          Update Item
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={handleUpdate} sx={{ mt: 3 }}>
           <Grid container spacing={2} width={400}>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="given-name"
-                name="ItemName"
+                name="item"
                 required
                 fullWidth
-                id="ItemName"
+                id="item"
                 label="Item Name"
                 autoFocus
-                onChange={(e) => setItemName(e.target.value)}
+                onChange={(e) => setItem(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="given-name"
-                name="ItemQuantity"
+                name="quantity"
                 required
                 fullWidth
-                id="ItemQuantity"
-                label="Quantity "
-                onChange={(e) => setItemQuantity(e.target.value)}
+                id="quantity"
+                label="Quantity"
+                onChange={(e) => setQuantity(e.target.value)}
               />
             </Grid>
             
@@ -125,4 +122,4 @@ const AddInventoryItem = (props) => {
   )
 }
 
-export default AddInventoryItem
+export default UpdateItems

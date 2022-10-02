@@ -87,9 +87,9 @@ export default function AcccessibleTable() {
                   </Link>
                 </IconButton>
                 <IconButton aria-label="delete" color="error">
-                  <DeleteAlert   query={"tblWarehouses"} getData={getData} item={item} />
+                  <DeleteAlert query={"tblWarehouses"} getData={getData} item={item} />
                 </IconButton>
-                <Link to={"/UpdateWareHouse/1"}>
+                <Link to={`UpdateWareHouse/${item.id}`} state={{ data: "tblWarehouses" , FieldName: "wareHouseName" }} >
                   <IconButton color="secondary">
                     <CloudSyncIcon sx={{ fontSize: 30 }} />
                   </IconButton>

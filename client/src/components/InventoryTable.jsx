@@ -28,7 +28,7 @@ const InventoryTable = () => {
 
 
 
-    const [Inventory, setInventory] = useState([])
+    const [Inventory, setInventory] = useState([{}])
     const params = useParams()
     const getData = async () => {
         const data = await axios
@@ -95,7 +95,7 @@ const InventoryTable = () => {
                                             </Link>
                                         </IconButton>
                                       
-                                        <Link to={"/UpdateWareHouse/1"}  >
+                                        <Link to={`UpdateWareHouse/${item.id}`}  state={{ data: "tblInventory" , FieldName: "inventoryName", wareHouseID: item.wareHouseID  }}  >
                                             <IconButton color="secondary">
                                                 <CloudSyncIcon sx={{ fontSize: 30 }} />
                                             </IconButton>

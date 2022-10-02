@@ -37,19 +37,6 @@ namespace WareHouseAPI.Controllers
 
         }
 
-        //[HttpGet]
-        //[Route("{id:guid}")]
-        //public async Task<IActionResult> GetInentoryItem([FromRoute] Guid id)
-        //{
-        //    var item = await dbContext.InventoryItems.FindAsync(id);
-
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(item);
-        //}
 
         [HttpPost]
         public async Task<IActionResult> AddInentoryItems(InventoryItems addInventoryItems)

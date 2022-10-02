@@ -6,6 +6,7 @@ import AddWareHouse from "./components/AddWareHouse"
 import UpdateWareHouse from "./components/UpdateWareHouse"
 import InventoryItemsTable from './components/InventoryItemsTable'
 import AddInventoryItem from './components/AddInventoryItem'
+import UpdateItems from './components/UpdateItems'
 
 export default function App() {
   return (
@@ -15,8 +16,10 @@ export default function App() {
     <Route path="/" exact element={<Feed/>} />
     <Route path="/AddWareHouse" exact element={<AddWareHouse/>} />
     <Route path="/AddInventoryItem/:id/add" exact element={<AddInventoryItem/>} />
-    <Route path="/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
     <Route path="/WareHouseid/:id" exact element={<InventoryTable/>} />
+    <Route path="/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
+    <Route path="/WareHouseid/:id/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
+    <Route path="/inventoryid/:id/itemid/:id" exact element={<UpdateItems/>} />
     <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<InventoryItemsTable/>} />
     </Routes>
     </BrowserRouter>
