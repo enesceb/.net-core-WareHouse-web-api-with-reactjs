@@ -27,7 +27,7 @@ namespace WareHouseAPI.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> GetInventoryItemsByInventoryId([FromRoute] Guid id)
         {
-            var inventory = await dbContext.InventoryItems.Where(w => w.InventoryID == id.ToString()).FirstAsync();
+            var inventory = await dbContext.InventoryItems.Where(w => w.InventoryID == id.ToString()).ToListAsync();
             if (inventory == null)
             {
                 return NotFound();

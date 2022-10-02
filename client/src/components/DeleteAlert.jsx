@@ -7,7 +7,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
-import { fontWeight } from '@mui/system';
 
 export default function AlertDialog(props) {
     const [open, setOpen] = React.useState(false);
@@ -18,13 +17,13 @@ export default function AlertDialog(props) {
 
     function handleDelete(id) {
         axios
-          .delete(`https://localhost:7089/api/tblWarehouses/${props.item.id}`)
-          .then(() => {
-            props.getData();
-            setOpen(false);
-          });
-      }
-    
+            .delete(`https://localhost:7089/api/${props.query}/${props.item.id}`)
+            .then(() => {
+                props.getData();
+                setOpen(false);
+            });
+    }
+
 
     const handleClose = () => {
         setOpen(false);
@@ -32,10 +31,7 @@ export default function AlertDialog(props) {
 
     return (
         <div>
-            
-                <DeleteIcon onClick={handleClickOpen} sx={{ fontSize: 30 }} />
-       
-
+            <DeleteIcon onClick={handleClickOpen} sx={{ fontSize: 30 }} />
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -45,9 +41,9 @@ export default function AlertDialog(props) {
                 <DialogTitle id="alert-dialog-title">
                     {"DELETE WAREHOUSE"}
                 </DialogTitle>
-                <DialogContent sx={{width: 500}}>
-                    <DialogContentText sx={{display:"flex", justifyContent:"center", fontSize:"20px" , fontWeight:"400"}} id="alert-dialog-description">
-                       Do you want to delete {props.item.wareHouseName}?<br/>
+                <DialogContent sx={{ width: 500 }}>
+                    <DialogContentText sx={{ display: "flex", justifyContent: "center", fontSize: "20px", fontWeight: "400" }} id="alert-dialog-description">
+                        Do you want to delete {props.item.wareHouseName}?<br />
                         If you want, you can click to Agree Button
                     </DialogContentText>
                 </DialogContent>

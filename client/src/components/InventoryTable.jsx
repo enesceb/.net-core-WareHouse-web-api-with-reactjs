@@ -25,95 +25,91 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 
 const InventoryTable = () => {
-  
 
-    
+
+
     const [Inventory, setInventory] = useState([])
     const params = useParams()
-    const getData = async () =>  {
+    const getData = async () => {
         const data = await axios
-          .get(`https://localhost:7089/api/tblInventory/${params.id}`)
-          .then((res) => {
-            setInventory([res.data]);
-          });
-      }
-    
-      useEffect(() => {
+            .get(`https://localhost:7089/api/tblInventory/${params.id}`)
+            .then((res) => {
+                setInventory([res.data]);
+            });
+    }
+
+    useEffect(() => {
         getData();
-      }, []);
-   
-      if(!Inventory) return 'Loading...';
-      
-      console.log(Inventory)
-  return (
-    <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="lg">
-    <Typography variant="h2" component="h1" gutterBottom>
-     {Inventory[0]?.inventoryName}
-    </Typography>
-    <Typography variant="h5" component="h2" gutterBottom>
-    <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          p: 1,
-          m: 1,
-          bgcolor: 'background.paper',
-          borderRadius: 1,
-        }}>
-        <Link to={"/"}  >
-      
-          <IconButton  sx={{ bgcolor: 'primary.main'}}>
-            <ChevronLeftIcon sx={{fontSize: 30 }} />
-          </IconButton>
+    }, []);
 
-        </Link>
-        </Box>
-          <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="caption table">
-                <caption>A basic table example with a caption</caption>
+    if (!Inventory) return 'Loading...';
 
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Inventory ID</TableCell>
-                        <TableCell align="right">Inventory Name</TableCell>
-                        <TableCell align="right">Actions </TableCell>
+    console.log(Inventory)
+    return (
+        <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="lg">
+            <Typography variant="h2" component="h1" gutterBottom>
+                {Inventory[0]?.inventoryName}
+            </Typography>
+            <Typography variant="h5" component="h2" gutterBottom>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        p: 1,
+                        m: 1,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                    }}>
+                    <Link to={"/"}  >
 
-                    </TableRow>
-                </TableHead>
+                        <IconButton sx={{ bgcolor: 'primary.main' }}>
+                            <ChevronLeftIcon sx={{ fontSize: 30 }} />
+                        </IconButton>
 
-                <TableBody>
-                    {Inventory.map((item) => (
-                        <TableRow key={item.id}>
-                            <TableCell component="th" scope="row">
-                                {item.id}
-                            </TableCell>
-                            <TableCell align="right">{item.inventoryName}</TableCell>
-                            <TableCell align="right">
-                                <IconButton aria-label="delete" color='primary'>
-                                <Link key={item.id} data-inventoryid={item.id} to={`inventoryid/${item.id}`} >
-                                        <Button  variant="outlined" startIcon={<VisibilityIcon />}>
-                                            View Items
-                                        </Button>
-                                    </Link>
-                                </IconButton>
-                                <IconButton aria-label="delete" color='error'>
-                                <DeleteAlert getData={getData} item={item}/>
-                                </IconButton>
-                                <Link to={"/UpdateWareHouse/1"}  >
-                                    <IconButton color="secondary">
-                                        <CloudSyncIcon sx={{ fontSize: 30 }} />
-                                    </IconButton>
-                                </Link>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-        </Typography>
-    <Typography variant="body1">ALTIS TECH. CASE</Typography>
-  </Container>
-  )
+                    </Link>
+                </Box>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="caption table">
+                        <caption>A basic table example with a caption</caption>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Inventory ID</TableCell>
+                                <TableCell align="right">Inventory Name</TableCell>
+                                <TableCell align="right">Actions </TableCell>
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {Inventory.map((item) => (
+                                <TableRow key={item.id}>
+                                    <TableCell component="th" scope="row">
+                                        {item.id}
+                                    </TableCell>
+                                    <TableCell align="right">{item.inventoryName}</TableCell>
+                                    <TableCell align="right">
+                                        <IconButton aria-label="delete" color='primary'>
+                                            <Link key={item.id} data-inventoryid={item.id} to={`inventoryid/${item.id}`} >
+                                                <Button variant="outlined" startIcon={<VisibilityIcon />}>
+                                                    View Items
+                                                </Button>
+                                            </Link>
+                                        </IconButton>
+                                      
+                                        <Link to={"/UpdateWareHouse/1"}  >
+                                            <IconButton color="secondary">
+                                                <CloudSyncIcon sx={{ fontSize: 30 }} />
+                                            </IconButton>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Typography>
+            <Typography variant="body1">ALTIS TECH. CASE</Typography>
+        </Container>
+    )
 }
 
 export default InventoryTable
