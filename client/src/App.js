@@ -10,21 +10,23 @@ import UpdateItems from './components/UpdateItems'
 
 export default function App() {
   return (
-   
+
     <BrowserRouter>
-    <Routes>
-    <Route path="/" exact element={<Feed/>} />
-    <Route path="/AddWareHouse" exact element={<AddWareHouse/>} />
-    <Route path="/AddInventoryItem/:id/add" exact element={<AddInventoryItem/>} />
-    <Route path="/WareHouseid/:id" exact element={<InventoryTable/>} />
-    <Route path="/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
-    <Route path="/WareHouseid/:id/UpdateWareHouse/:id" exact element={<UpdateWareHouse/>} />
-    <Route path="/inventoryid/:id/itemid/:id" exact element={<UpdateItems/>} />
-    <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<InventoryItemsTable/>} />
-    </Routes>
+      <Routes>
+        <Route path="/" exact element={<Feed />} />
+        <Route path="/AddWareHouse" exact element={<AddWareHouse />} />
+        <Route path="/AddInventoryItem/:id/add" exact element={<AddInventoryItem />} />
+        <Route path="/WareHouseid/:id" exact element={<InventoryTable />} />
+        <Route path="/UpdateWareHouse/:id" exact element={<UpdateWareHouse />} />
+        <Route path="/WareHouseid/:id/UpdateWareHouse/:id" exact element={<UpdateWareHouse />} />
+        <Route path="/inventoryid/:id/itemid/:id" exact element={<UpdateItems />} />
+        <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<InventoryItemsTable />} />
+        <Route path="/WareHouseid/:id/inventoryid/:id" exact element={<UpdateWareHouse />} />
+
+      </Routes>
     </BrowserRouter>
     // Finalize
-    
+
   );
 }
 

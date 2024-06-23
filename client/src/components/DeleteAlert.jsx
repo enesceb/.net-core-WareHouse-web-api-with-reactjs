@@ -42,7 +42,7 @@ export default function AlertDialog(props) {
                 <DialogContent sx={{ width: 500 }}>
                     <DialogContentText sx={{ display: "flex", justifyContent: "center", fontSize: "20px", fontWeight: "400" }} id="alert-dialog-description">
                         Do you want to delete {props.item.wareHouseName}?<br />
-                        If you want, you can click to Agree Button
+                        Degisiiklige emin misin
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
